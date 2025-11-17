@@ -1,0 +1,57 @@
+# === .clang-tidy ===
+Checks: >
+  -*,
+  bugprone-*,
+  clang-analyzer-*,
+  cppcoreguidelines-init-variables,
+  cppcoreguidelines-narrowing-conversions,
+  cppcoreguidelines-pro-type-const-cast,
+  cppcoreguidelines-pro-type-static-cast-downcast,
+  cppcoreguidelines-pro-type-reinterpret-cast,
+  cppcoreguidelines-slicing,
+  google-*,
+  -google-runtime-references,
+  -google-readability-todo,
+  misc-*,
+  modernize-*,
+  -modernize-use-trailing-return-type,
+  -modernize-use-auto,          # 太激进的话可以关掉
+  performance-*,
+  readability-*,
+  -readability-magic-numbers,   # 容易太吵，先关掉
+  -readability-identifier-naming
+
+WarningsAsErrors: >
+  bugprone-*,
+  clang-analyzer-*,
+  performance-*,
+  cppcoreguidelines-init-variables
+
+HeaderFilterRegex: '.*'          # 对所有头文件生效，你可改成自家项目路径
+AnalyzeTemporaryDtors: true
+FormatStyle: none                # 不让 clang-tidy 管格式，交给 clang-format
+
+User: ''
+
+ExtraArgs:                       # 这里可以加上你项目的编译选项
+  - -std=c++17
+  - -Wall
+  - -Wextra
+  - -Wpedantic
+
+CheckOptions:
+  # 避免 modernize-use-nullptr 在 C 接口里太激进
+  - key: modernize-use-nullptr.NullMacros
+    value: 'NULL'
+
+  # 避免 google-readability-braces-around-statements 对单行 if/for 十分苛刻
+  - key: google-readability-braces-around-statements.ShortStatementLines
+    value: '1'
+
+  # 指定魔法数检测的白名单（如果以后打开 readability-magic-numbers）
+  - key: readability-magic-numbers.IgnoredIntegerValues
+    value: '0;1;2;4;8;16;32;64'
+
+  # modernize-use-auto 只在复杂类型上建议使用 auto（如果你把它打开）
+  - key: modernize-use-auto.MinTypeNameLength
+    value: '10'

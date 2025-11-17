@@ -1,0 +1,82 @@
+# === .clang-format ===
+# 基于 Google Style 做统一格式控制
+BasedOnStyle: Google
+Language: Cpp
+Standard: Latest          # 自动跟随编译器支持的最新标准（等价于 c++17/20）
+
+# 行宽（Google 默认 80，很多团队会改到 100～120，看你喜好）
+ColumnLimit: 100
+
+# 缩进相关
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+# 命名空间内是否额外缩进
+NamespaceIndentation: None   # Google 风格：不缩进命名空间内部
+
+# 指针、引用对齐
+DerivePointerAlignment: false
+PointerAlignment: Left       # `int* p` -> `int* p;`
+ReferenceAlignment: Left
+
+# 大括号风格（Google = Attach）
+BreakBeforeBraces: Attach
+
+# 函数声明 / 调用换行策略
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllArgumentsOnNextLine: false
+BinPackParameters: true
+BinPackArguments: true
+
+# 控制 if/for 等条件内换行的风格
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
+
+# 包含文件排序和分组
+SortIncludes: true
+IncludeBlocks: Regroup
+
+IncludeCategories:
+  - Regex: '^<.*\.h>'
+    Priority: 1
+  - Regex: '^<.*>'
+    Priority: 2
+  - Regex: '^".*\.h"'
+    Priority: 3
+  - Regex: '^".*"'
+    Priority: 4
+
+# 对齐相关
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+
+# switch / case 缩进
+IndentCaseLabels: true
+IndentGotoLabels: false
+
+# 模板相关
+IndentWrappedFunctionNames: false
+AlwaysBreakTemplateDeclarations: Yes
+
+# lambda / 捕获等
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpacesInParentheses: false
+SpacesInAngles:  false
+SpaceInEmptyParentheses: false
+
+# 注释
+ReflowComments: true
+CommentPragmas: '^ NOLINT'
+
+# 其它常用配置
+BreakConstructorInitializersBeforeComma: false
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+
+# 宏
+MacroBlockBegin: '^BEGIN_.*'
+MacroBlockEnd: '^END_.*'
